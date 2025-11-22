@@ -38,11 +38,14 @@ class Product(BaseModel):
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
 
-# Add your own schemas here:
-# --------------------------------------------------
-
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+# Traffic tracking schemas
+class TrafficEvent(BaseModel):
+    """
+    Traffic events collection schema
+    Collection name: "trafficevent"
+    """
+    path: str = Field(..., description="Path or page identifier")
+    source: Optional[str] = Field(None, description="Referrer, campaign, or source tag")
+    event: str = Field("view", description="Event type, e.g., view, click, signup")
+    user_agent: Optional[str] = Field(None, description="User agent string")
+    ip: Optional[str] = Field(None, description="Client IP address")
